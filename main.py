@@ -12,6 +12,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def hello_world(name: str = "World") -> str:
+    """Return a simple Hello World style greeting."""
+    return f"Hello, {name}!"
+
 @app.get("/")
 def read_root():
     return {"message": "Hello from FastAPI Backend!"}
@@ -19,6 +23,10 @@ def read_root():
 @app.get("/api/hello")
 def hello():
     return {"message": "Hello from the backend API!"}
+
+@app.get("/api/hello/{name}")
+def hello_name(name: str):
+    return {"message": hello_world(name)}
 
 @app.get("/test")
 def test_database():
